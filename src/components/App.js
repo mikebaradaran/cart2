@@ -5,6 +5,7 @@ import ProductList from './ProductList ';
 import Cart from './Cart';
 import products from "../products.json";
 import "./App.css";
+import UserDetailsForm from './UserDetailsForm';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -40,13 +41,24 @@ function App() {
     }
   };
 
+  const [isShown, setIsShown] = useState(false);
+
+  const handleClick = () => {
+    setIsShown(!isShown);
+  };
   return (
-    <div>
+    <>
       <h1 class="appTitle">Shopping Cart</h1>
       <ProductList products={products} addToCart={addToCart} />
       <Cart cartItems={cartItems} removeOneFromCart={removeOneFromCart} />
       <h3>Total price: £{totalPrice.toFixed(2)}</h3>
-    </div>
+      <div>
+        <button onClick={handleClick}>
+          {isShown ? 'Hide' : 'Show'} Get details
+        </button>
+        {isShown && <UserDetailsForm />}
+      </div>
+    </>
   );
 }
 
